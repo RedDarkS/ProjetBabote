@@ -36,14 +36,17 @@ public class FindPaper : MonoBehaviour
             {
                 case "vase":
                     dansVase.GetComponent<Animator>().SetTrigger("vaseOUT");
+                    FindObjectOfType<AudioManager>().Play("Vase");
                     break;
 
                 case "livreOuvert":
                     dansLivre.GetComponent<Animator>().SetTrigger("livreOUT");
+                    FindObjectOfType<AudioManager>().Play("Livre");
                     break;
 
                 case "GrossePierre":
                     dansMur.GetComponent<Animator>().SetTrigger("murOUT");
+                    FindObjectOfType<AudioManager>().Play("Roche");
                     break;
             }
 

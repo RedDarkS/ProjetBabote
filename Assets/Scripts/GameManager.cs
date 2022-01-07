@@ -25,12 +25,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] Canvas menuPrincipal;
     [SerializeField] Canvas carnetUI;
     [SerializeField] Canvas digicodeUI;
+    [SerializeField] Canvas tuto;
 
+    [SerializeField] Button tutoJournal;
+    [SerializeField] Button tutoPlayPause;
+    [SerializeField] Button tutoZoom;
+    [SerializeField] Button tutoSwipe;
     [SerializeField] Button zoomInOut;
 
     [SerializeField] Text digicodeText;
 
     [SerializeField] Image fondPause;
+    [SerializeField] Image fondTuto;
     [SerializeField] Image fonduNoir;
     [SerializeField] Image carnetImage;
 
@@ -82,11 +88,17 @@ public class GameManager : MonoBehaviour
         menuPrincipal.enabled = true;
         carnetUI.enabled = false;
         digicodeUI.enabled = false;
+        tuto.enabled = false;
 
         zoomInOut.enabled = false;
 
         fondPause.enabled = false;
         fonduNoir.enabled = false;
+
+        tutoJournal.gameObject.SetActive(false);
+        tutoPlayPause.gameObject.SetActive(false);
+        tutoSwipe.gameObject.SetActive(false);
+        tutoZoom.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -130,6 +142,66 @@ public class GameManager : MonoBehaviour
                 zoomInOut.gameObject.SetActive(false);
             }
         }
+    }
+
+    public void startTuto()
+    {
+        menuPrincipal.enabled = false;
+        HUD.enabled = true;
+        tuto.enabled = true;
+
+        tutoJournal.gameObject.SetActive(true);
+    }
+
+    public void playClick()
+    {
+        FindObjectOfType<AudioManager>().Play("Click");
+    }
+
+    public void updateTuto(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                tutoJournal.gameObject.SetActive(true);
+                tutoPlayPause.gameObject.SetActive(false);
+                tutoSwipe.gameObject.SetActive(false);
+                tutoZoom.gameObject.SetActive(false);
+                break;
+
+            case 1:
+                tutoJournal.gameObject.SetActive(false);
+                tutoPlayPause.gameObject.SetActive(true);
+                tutoSwipe.gameObject.SetActive(false);
+                tutoZoom.gameObject.SetActive(false);
+                break;
+
+            case 2:
+                tutoJournal.gameObject.SetActive(false);
+                tutoPlayPause.gameObject.SetActive(false);
+                tutoSwipe.gameObject.SetActive(true);
+                tutoZoom.gameObject.SetActive(false);
+                break;
+
+            case 3:
+                tutoJournal.gameObject.SetActive(false);
+                tutoPlayPause.gameObject.SetActive(false);
+                tutoSwipe.gameObject.SetActive(false);
+                tutoZoom.gameObject.SetActive(true);
+                break;
+        }
+    }
+
+    public void endTuto()
+    {
+        tuto.enabled = false;
+
+        tutoJournal.gameObject.SetActive(false);
+        tutoPlayPause.gameObject.SetActive(false);
+        tutoSwipe.gameObject.SetActive(false);
+        tutoZoom.gameObject.SetActive(false);
+
+        PlayGame();
     }
     void LoadRoom()
     {
